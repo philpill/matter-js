@@ -19,6 +19,7 @@ Matter.MouseConstraint = require('../constraint/MouseConstraint');
 Matter.Common = require('../core/Common');
 Matter.Engine = require('../core/Engine');
 Matter.Events = require('../core/Events');
+Matter.Matter = require('../core/Matter');
 Matter.Mouse = require('../core/Mouse');
 Matter.Runner = require('../core/Runner');
 Matter.Sleeping = require('../core/Sleeping');

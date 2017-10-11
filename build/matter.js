@@ -6,19 +6,19 @@
 
 /**
  * The MIT License (MIT)
- * 
+ *
  * Copyright (c) Liam Brummitt and contributors.
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -329,7 +329,7 @@ var Axes = _dereq_('../geometry/Axes');
     };
 
     /**
-     * Sets the moment of inertia (i.e. second moment of area) of the body of the body. 
+     * Sets the moment of inertia (i.e. second moment of area) of the body of the body.
      * Inverse inertia is automatically updated to reflect the change. Mass is not changed.
      * @method setInertia
      * @param {body} body
@@ -533,7 +533,7 @@ var Axes = _dereq_('../geometry/Axes');
                 sin = Math.sin(rotation),
                 dx = body.position.x - point.x,
                 dy = body.position.y - point.y;
-                
+
             Body.setPosition(body, {
                 x: point.x + (dx * cos - dy * sin),
                 y: point.y + (dx * sin + dy * cos)
@@ -576,7 +576,7 @@ var Axes = _dereq_('../geometry/Axes');
         }
 
         // handle circles
-        if (body.circleRadius) { 
+        if (body.circleRadius) {
             if (scaleX === scaleY) {
                 body.circleRadius *= scaleX;
             } else {
@@ -632,7 +632,7 @@ var Axes = _dereq_('../geometry/Axes');
             var part = body.parts[i];
 
             Vertices.translate(part.vertices, body.velocity);
-            
+
             if (i > 0) {
                 part.position.x += body.velocity.x;
                 part.position.y += body.velocity.y;
@@ -689,11 +689,11 @@ var Axes = _dereq_('../geometry/Axes');
             properties.mass += part.mass;
             properties.area += part.area;
             properties.inertia += part.inertia;
-            properties.centre = Vector.add(properties.centre, 
+            properties.centre = Vector.add(properties.centre,
                                            Vector.mult(part.position, part.mass !== Infinity ? part.mass : 1));
         }
 
-        properties.centre = Vector.div(properties.centre, 
+        properties.centre = Vector.div(properties.centre,
                                        properties.mass !== Infinity ? properties.mass : body.parts.length);
 
         return properties;
@@ -756,7 +756,7 @@ var Axes = _dereq_('../geometry/Axes');
      */
 
     /**
-     * An array of bodies that make up this body. 
+     * An array of bodies that make up this body.
      * The first body in the array must always be a self reference to the current body instance.
      * All bodies in the `parts` array together form a single rigid compound body.
      * Parts are allowed to overlap, have gaps or holes or even form concave bodies.
@@ -798,7 +798,7 @@ var Axes = _dereq_('../geometry/Axes');
      *     [{ x: 0, y: 0 }, { x: 25, y: 50 }, { x: 50, y: 0 }]
      *
      * When passed via `Body.create`, the vertices are translated relative to `body.position` (i.e. world-space, and constantly updated by `Body.update` during simulation).
-     * The `Vector` objects are also augmented with additional properties required for efficient collision detection. 
+     * The `Vector` objects are also augmented with additional properties required for efficient collision detection.
      *
      * Other properties such as `inertia` and `bounds` are automatically calculated from the passed vertices (unless provided via `options`).
      * Concave hulls are not currently supported. The module `Matter.Vertices` contains useful methods for working with vertices.
@@ -850,7 +850,7 @@ var Axes = _dereq_('../geometry/Axes');
      */
 
     /**
-     * A `Vector` that _measures_ the current velocity of the body after the last `Body.update`. It is read-only. 
+     * A `Vector` that _measures_ the current velocity of the body after the last `Body.update`. It is read-only.
      * If you need to modify a body's velocity directly, you should either apply a force or simply change the body's `position` (as the engine uses position-Verlet integration).
      *
      * @readOnly
@@ -860,7 +860,7 @@ var Axes = _dereq_('../geometry/Axes');
      */
 
     /**
-     * A `Number` that _measures_ the current angular velocity of the body after the last `Body.update`. It is read-only. 
+     * A `Number` that _measures_ the current angular velocity of the body after the last `Body.update`. It is read-only.
      * If you need to modify a body's angular velocity directly, you should apply a torque or simply change the body's `angle` (as the engine uses position-Verlet integration).
      *
      * @readOnly
@@ -958,7 +958,7 @@ var Axes = _dereq_('../geometry/Axes');
 
     /**
      * A `Number` that defines the restitution (elasticity) of the body. The value is always positive and is in the range `(0, 1)`.
-     * A value of `0` means collisions may be perfectly inelastic and no bouncing may occur. 
+     * A value of `0` means collisions may be perfectly inelastic and no bouncing may occur.
      * A value of `0.8` means the body may bounce back with approximately 80% of its kinetic energy.
      * Note that collision response is based on _pairs_ of bodies, and that `restitution` values are _combined_ with the following formula:
      *
@@ -974,7 +974,7 @@ var Axes = _dereq_('../geometry/Axes');
      * A value of `0` means that the body may slide indefinitely.
      * A value of `1` means the body may come to a stop almost instantly after a force is applied.
      *
-     * The effects of the value may be non-linear. 
+     * The effects of the value may be non-linear.
      * High values may be unstable depending on the body.
      * The engine uses a Coulomb friction model including static and kinetic friction.
      * Note that collision response is based on _pairs_ of bodies, and that `friction` values are _combined_ with the following formula:
@@ -987,7 +987,7 @@ var Axes = _dereq_('../geometry/Axes');
      */
 
     /**
-     * A `Number` that defines the static friction of the body (in the Coulomb friction model). 
+     * A `Number` that defines the static friction of the body (in the Coulomb friction model).
      * A value of `0` means the body will never 'stick' when it is nearly stationary and only dynamic `friction` is used.
      * The higher the value (e.g. `10`), the more force it will take to initially get the body moving when nearly stationary.
      * This value is multiplied with the `friction` property to make it easier to change `friction` and maintain an appropriate amount of static friction.
@@ -998,10 +998,10 @@ var Axes = _dereq_('../geometry/Axes');
      */
 
     /**
-     * A `Number` that defines the air friction of the body (air resistance). 
+     * A `Number` that defines the air friction of the body (air resistance).
      * A value of `0` means the body will never slow as it moves through space.
      * The higher the value, the faster a body slows when moving through space.
-     * The effects of the value are non-linear. 
+     * The effects of the value are non-linear.
      *
      * @property frictionAir
      * @type number
@@ -1117,7 +1117,7 @@ var Axes = _dereq_('../geometry/Axes');
      * @property render.sprite.texture
      * @type string
      */
-     
+
     /**
      * A `Number` that defines the scaling in the x-axis for the sprite, if any.
      *
@@ -1185,13 +1185,13 @@ var Axes = _dereq_('../geometry/Axes');
      * @property axes
      * @type vector[]
      */
-     
+
     /**
      * A `Number` that _measures_ the area of the body's convex hull, calculated at creation by `Body.create`.
      *
      * @property area
      * @type string
-     * @default 
+     * @default
      */
 
     /**
@@ -1234,13 +1234,13 @@ var Body = _dereq_('./Body');
      * @return {composite} A new composite
      */
     Composite.create = function(options) {
-        return Common.extend({ 
+        return Common.extend({
             id: Common.nextId(),
             type: 'composite',
             parent: null,
             isModified: false,
-            bodies: [], 
-            constraints: [], 
+            bodies: [],
+            constraints: [],
             composites: [],
             label: 'Composite',
             plugin: {}
@@ -1248,7 +1248,7 @@ var Body = _dereq_('./Body');
     };
 
     /**
-     * Sets the composite's `isModified` flag. 
+     * Sets the composite's `isModified` flag.
      * If `updateParents` is true, all parents will be set (default: false).
      * If `updateChildren` is true, all children will be set (default: false).
      * @method setModified
@@ -1531,7 +1531,7 @@ var Body = _dereq_('./Body');
                 Composite.clear(composite.composites[i], keepStatic, true);
             }
         }
-        
+
         if (keepStatic) {
             composite.bodies = composite.bodies.filter(function(body) { return body.isStatic; });
         } else {
@@ -1617,8 +1617,8 @@ var Body = _dereq_('./Body');
         if (!objects)
             return null;
 
-        object = objects.filter(function(object) { 
-            return object.id.toString() === id.toString(); 
+        object = objects.filter(function(object) {
+            return object.id.toString() === id.toString();
         });
 
         return object.length === 0 ? null : object[0];
@@ -1659,7 +1659,7 @@ var Body = _dereq_('./Body');
     };
 
     /**
-     * Translates all children in the composite by a given vector relative to their current positions, 
+     * Translates all children in the composite by a given vector relative to their current positions,
      * without imparting any velocity.
      * @method translate
      * @param {composite} composite
@@ -1695,7 +1695,7 @@ var Body = _dereq_('./Body');
             var body = bodies[i],
                 dx = body.position.x - point.x,
                 dy = body.position.y - point.y;
-                
+
             Body.setPosition(body, {
                 x: point.x + (dx * cos - dy * sin),
                 y: point.y + (dx * sin + dy * cos)
@@ -1725,7 +1725,7 @@ var Body = _dereq_('./Body');
             var body = bodies[i],
                 dx = body.position.x - point.x,
                 dy = body.position.y - point.y;
-                
+
             Body.setPosition(body, {
                 x: point.x + dx * scaleX,
                 y: point.y + dy * scaleY
@@ -1932,12 +1932,12 @@ var Common = _dereq_('../core/Common');
                 y: 1,
                 scale: 0.001
             },
-            bounds: { 
-                min: { x: -Infinity, y: -Infinity }, 
-                max: { x: Infinity, y: Infinity } 
+            bounds: {
+                min: { x: -Infinity, y: -Infinity },
+                max: { x: Infinity, y: Infinity }
             }
         };
-        
+
         return Common.extend(composite, defaults, options);
     };
 
@@ -1988,7 +1988,7 @@ var Common = _dereq_('../core/Common');
 
     // World is a Composite body
     // see src/module/Outro.js for these aliases:
-    
+
     /**
      * An alias for Composite.clear
      * @method clear
@@ -2003,7 +2003,7 @@ var Common = _dereq_('../core/Common');
      * @param {composite} composite
      * @return {world} The original world with the objects from composite added
      */
-    
+
      /**
       * An alias for Composite.addBody
       * @method addBody
@@ -2049,7 +2049,7 @@ module.exports = Contact;
             tangentImpulse: 0
         };
     };
-    
+
     /**
      * Generates a contact id.
      * @method id
@@ -2092,14 +2092,14 @@ var Bounds = _dereq_('../geometry/Bounds');
         var collisions = [],
             pairsTable = engine.pairs.table;
 
-        
+
         for (var i = 0; i < broadphasePairs.length; i++) {
-            var bodyA = broadphasePairs[i][0], 
+            var bodyA = broadphasePairs[i][0],
                 bodyB = broadphasePairs[i][1];
 
             if ((bodyA.isStatic || bodyA.isSleeping) && (bodyB.isStatic || bodyB.isSleeping))
                 continue;
-            
+
             if (!Detector.canCollide(bodyA.collisionFilter, bodyB.collisionFilter))
                 continue;
 
@@ -2349,12 +2349,12 @@ var Common = _dereq_('../core/Common');
      * @return {} region
      */
     var _createRegion = function(startCol, endCol, startRow, endRow) {
-        return { 
+        return {
             id: startCol + ',' + endCol + ',' + startRow + ',' + endRow,
-            startCol: startCol, 
-            endCol: endCol, 
-            startRow: startRow, 
-            endRow: endRow 
+            startCol: startCol,
+            endCol: endCol,
+            startRow: startRow,
+            endRow: endRow
         };
     };
 
@@ -2470,7 +2470,7 @@ var Common = _dereq_('../core/Common');
 
         return pairs;
     };
-    
+
 })();
 
 },{"../core/Common":14,"./Detector":5,"./Pair":7}],7:[function(_dereq_,module,exports){
@@ -2487,7 +2487,7 @@ module.exports = Pair;
 var Contact = _dereq_('./Contact');
 
 (function() {
-    
+
     /**
      * Creates a pair.
      * @method create
@@ -2537,7 +2537,7 @@ var Contact = _dereq_('./Contact');
             activeContacts = pair.activeContacts,
             parentA = collision.parentA,
             parentB = collision.parentB;
-        
+
         pair.collision = collision;
         pair.inverseMass = parentA.inverseMass + parentB.inverseMass;
         pair.friction = Math.min(parentA.friction, parentB.friction);
@@ -2545,7 +2545,7 @@ var Contact = _dereq_('./Contact');
         pair.restitution = Math.max(parentA.restitution, parentB.restitution);
         pair.slop = Math.max(parentA.slop, parentB.slop);
         activeContacts.length = 0;
-        
+
         if (collision.collided) {
             for (var i = 0; i < supports.length; i++) {
                 var support = supports[i],
@@ -2566,7 +2566,7 @@ var Contact = _dereq_('./Contact');
                 Pair.setActive(pair, false, timestamp);
         }
     };
-    
+
     /**
      * Set a pair as active or inactive.
      * @method setActive
@@ -2616,7 +2616,7 @@ var Pair = _dereq_('./Pair');
 var Common = _dereq_('../core/Common');
 
 (function() {
-    
+
     var _pairMaxIdleLife = 1000;
 
     /**
@@ -2626,7 +2626,7 @@ var Common = _dereq_('../core/Common');
      * @return {pairs} A new pairs structure
      */
     Pairs.create = function(options) {
-        return Common.extend({ 
+        return Common.extend({
             table: {},
             list: [],
             collisionStart: [],
@@ -2667,7 +2667,7 @@ var Common = _dereq_('../core/Common');
                 activePairIds.push(pairId);
 
                 pair = pairsTable[pairId];
-                
+
                 if (pair) {
                     // pair already exists (but may or may not be active)
                     if (pair.isActive) {
@@ -2701,7 +2701,7 @@ var Common = _dereq_('../core/Common');
             }
         }
     };
-    
+
     /**
      * Finds and removes pairs that have been inactive for a set amount of time.
      * @method removeOld
@@ -2720,7 +2720,7 @@ var Common = _dereq_('../core/Common');
         for (i = 0; i < pairsList.length; i++) {
             pair = pairsList[i];
             collision = pair.collision;
-            
+
             // never remove sleeping pairs
             if (collision.bodyA.isSleeping || collision.bodyB.isSleeping) {
                 pair.timeUpdated = timestamp;
@@ -2801,7 +2801,7 @@ var Vertices = _dereq_('../geometry/Vertices');
 
         for (var i = 0; i < bodies.length; i++) {
             var bodyA = bodies[i];
-            
+
             if (Bounds.overlaps(bodyA.bounds, ray.bounds)) {
                 for (var j = bodyA.parts.length === 1 ? 0 : 1; j < bodyA.parts.length; j++) {
                     var part = bodyA.parts[j];
@@ -2854,7 +2854,7 @@ var Vertices = _dereq_('../geometry/Vertices');
 
         for (var i = 0; i < bodies.length; i++) {
             var body = bodies[i];
-            
+
             if (Bounds.contains(body.bounds, point)) {
                 for (var j = body.parts.length === 1 ? 0 : 1; j < body.parts.length; j++) {
                     var part = body.parts[j];
@@ -2910,10 +2910,10 @@ var Bounds = _dereq_('../geometry/Bounds');
         // find total contacts on each body
         for (i = 0; i < pairs.length; i++) {
             pair = pairs[i];
-            
+
             if (!pair.isActive)
                 continue;
-            
+
             activeCount = pair.activeContacts.length;
             pair.collision.parentA.totalContacts += activeCount;
             pair.collision.parentB.totalContacts += activeCount;
@@ -2945,7 +2945,7 @@ var Bounds = _dereq_('../geometry/Bounds');
         // find impulses required to resolve penetration
         for (i = 0; i < pairs.length; i++) {
             pair = pairs[i];
-            
+
             if (!pair.isActive || pair.isSensor)
                 continue;
 
@@ -2955,19 +2955,19 @@ var Bounds = _dereq_('../geometry/Bounds');
             normal = collision.normal;
 
             // get current separation between body edges involved in collision
-            bodyBtoA = Vector.sub(Vector.add(bodyB.positionImpulse, bodyB.position, tempA), 
-                                    Vector.add(bodyA.positionImpulse, 
+            bodyBtoA = Vector.sub(Vector.add(bodyB.positionImpulse, bodyB.position, tempA),
+                                    Vector.add(bodyA.positionImpulse,
                                         Vector.sub(bodyB.position, collision.penetration, tempB), tempC), tempD);
 
             pair.separation = Vector.dot(normal, bodyBtoA);
         }
-        
+
         for (i = 0; i < pairs.length; i++) {
             pair = pairs[i];
 
             if (!pair.isActive || pair.isSensor)
                 continue;
-            
+
             collision = pair.collision;
             bodyA = collision.parentA;
             bodyB = collision.parentB;
@@ -2976,7 +2976,7 @@ var Bounds = _dereq_('../geometry/Bounds');
 
             if (bodyA.isStatic || bodyB.isStatic)
                 positionImpulse *= 2;
-            
+
             if (!(bodyA.isStatic || bodyA.isSleeping)) {
                 contactShare = Resolver._positionDampen / bodyA.totalContacts;
                 bodyA.positionImpulse.x += normal.x * positionImpulse * contactShare;
@@ -3052,13 +3052,13 @@ var Bounds = _dereq_('../geometry/Bounds');
             offset,
             impulse = Vector._temp[0],
             tempA = Vector._temp[1];
-        
+
         for (i = 0; i < pairs.length; i++) {
             pair = pairs[i];
-            
+
             if (!pair.isActive || pair.isSensor)
                 continue;
-            
+
             contacts = pair.activeContacts;
             collision = pair.collision;
             bodyA = collision.parentA;
@@ -3077,7 +3077,7 @@ var Bounds = _dereq_('../geometry/Bounds');
                     // total impulse from contact
                     impulse.x = (normal.x * normalImpulse) + (tangent.x * tangentImpulse);
                     impulse.y = (normal.y * normalImpulse) + (tangent.y * tangentImpulse);
-                    
+
                     // apply impulse from contact
                     if (!(bodyA.isStatic || bodyA.isSleeping)) {
                         offset = Vector.sub(contactVertex, bodyA.position, tempA);
@@ -3111,13 +3111,13 @@ var Bounds = _dereq_('../geometry/Bounds');
             tempC = Vector._temp[3],
             tempD = Vector._temp[4],
             tempE = Vector._temp[5];
-        
+
         for (var i = 0; i < pairs.length; i++) {
             var pair = pairs[i];
-            
+
             if (!pair.isActive || pair.isSensor)
                 continue;
-            
+
             var collision = pair.collision,
                 bodyA = collision.parentA,
                 bodyB = collision.parentB,
@@ -3141,7 +3141,7 @@ var Bounds = _dereq_('../geometry/Bounds');
                     offsetA = Vector.sub(contactVertex, bodyA.position, tempA),
                     offsetB = Vector.sub(contactVertex, bodyB.position, tempB),
                     velocityPointA = Vector.add(bodyA.velocity, Vector.mult(Vector.perp(offsetA), bodyA.angularVelocity), tempC),
-                    velocityPointB = Vector.add(bodyB.velocity, Vector.mult(Vector.perp(offsetB), bodyB.angularVelocity), tempD), 
+                    velocityPointB = Vector.add(bodyB.velocity, Vector.mult(Vector.perp(offsetB), bodyB.angularVelocity), tempD),
                     relativeVelocity = Vector.sub(velocityPointA, velocityPointB, tempE),
                     normalVelocity = Vector.dot(normal, relativeVelocity);
 
@@ -3200,7 +3200,7 @@ var Bounds = _dereq_('../geometry/Bounds');
                 // total impulse from contact
                 impulse.x = (normal.x * normalImpulse) + (tangent.x * tangentImpulse);
                 impulse.y = (normal.y * normalImpulse) + (tangent.y * tangentImpulse);
-                
+
                 // apply impulse from contact
                 if (!(bodyA.isStatic || bodyA.isSleeping)) {
                     bodyA.positionPrev.x += impulse.x * bodyA.inverseMass;
@@ -3247,7 +3247,7 @@ var Vector = _dereq_('../geometry/Vector');
      */
     SAT.collides = function(bodyA, bodyB, previousCollision) {
         var overlapAB,
-            overlapBA, 
+            overlapBA,
             minOverlap,
             collision,
             canReusePrevCol = false;
@@ -3259,7 +3259,7 @@ var Vector = _dereq_('../geometry/Vector');
                 motion = parentA.speed * parentA.speed + parentA.angularSpeed * parentA.angularSpeed
                        + parentB.speed * parentB.speed + parentB.angularSpeed * parentB.angularSpeed;
 
-            // we may be able to (partially) reuse collision result 
+            // we may be able to (partially) reuse collision result
             // but only safe if collision was resting
             canReusePrevCol = previousCollision && previousCollision.collided && motion < 0.2;
 
@@ -3318,7 +3318,7 @@ var Vector = _dereq_('../geometry/Vector');
         collision.depth = minOverlap.overlap;
         collision.parentA = collision.bodyA.parent;
         collision.parentB = collision.bodyB.parent;
-        
+
         bodyA = collision.bodyA;
         bodyB = collision.bodyB;
 
@@ -3339,7 +3339,7 @@ var Vector = _dereq_('../geometry/Vector');
 
         collision.penetration = collision.penetration || {};
         collision.penetration.x = collision.normal.x * collision.depth;
-        collision.penetration.y = collision.normal.y * collision.depth; 
+        collision.penetration.y = collision.normal.y * collision.depth;
 
         // find support points, there is always either exactly one or two
         var verticesB = _findSupports(bodyA, bodyB, collision.normal),
@@ -3355,7 +3355,7 @@ var Vector = _dereq_('../geometry/Vector');
         // find the supports from bodyA that are inside bodyB
         if (supports.length < 2) {
             var verticesA = _findSupports(bodyB, bodyA, Vector.neg(collision.normal));
-                
+
             if (Vertices.contains(bodyB.vertices, verticesA[0]))
                 supports.push(verticesA[0]);
 
@@ -3366,7 +3366,7 @@ var Vector = _dereq_('../geometry/Vector');
         // account for the edge case of overlapping but no vertex containment
         if (supports.length < 1)
             supports = [verticesB[0]];
-        
+
         collision.supports = supports;
 
         return collision;
@@ -3382,7 +3382,7 @@ var Vector = _dereq_('../geometry/Vector');
      * @return result
      */
     var _overlapAxes = function(verticesA, verticesB, axes) {
-        var projectionA = Vector._temp[0], 
+        var projectionA = Vector._temp[0],
             projectionB = Vector._temp[1],
             result = { overlap: Number.MAX_VALUE },
             overlap,
@@ -3426,17 +3426,17 @@ var Vector = _dereq_('../geometry/Vector');
         for (var i = 1; i < vertices.length; i += 1) {
             var dot = Vector.dot(vertices[i], axis);
 
-            if (dot > max) { 
-                max = dot; 
-            } else if (dot < min) { 
-                min = dot; 
+            if (dot > max) {
+                max = dot;
+            } else if (dot < min) {
+                min = dot;
             }
         }
 
         projection.min = min;
         projection.max = max;
     };
-    
+
     /**
      * Finds supporting vertices given two bodies along a given direction using hill-climbing.
      * @method _findSupports
@@ -3542,7 +3542,7 @@ var Common = _dereq_('../core/Common');
         var initialPointA = constraint.bodyA ? Vector.add(constraint.bodyA.position, constraint.pointA) : constraint.pointA,
             initialPointB = constraint.bodyB ? Vector.add(constraint.bodyB.position, constraint.pointB) : constraint.pointB,
             length = Vector.magnitude(Vector.sub(initialPointA, initialPointB));
-    
+
         constraint.length = typeof constraint.length !== 'undefined' ? constraint.length : length;
 
         // option defaults
@@ -3650,7 +3650,7 @@ var Common = _dereq_('../core/Common');
             Vector.rotate(pointA, bodyA.angle - constraint.angleA, pointA);
             constraint.angleA = bodyA.angle;
         }
-        
+
         // update reference angle
         if (bodyB && !bodyB.isStatic) {
             Vector.rotate(pointB, bodyB.angle - constraint.angleB, pointB);
@@ -3728,7 +3728,7 @@ var Common = _dereq_('../core/Common');
             // keep track of applied impulses for post solving
             bodyB.constraintImpulse.x += force.x * share;
             bodyB.constraintImpulse.y += force.y * share;
-            
+
             // apply forces
             bodyB.position.x += force.x * share;
             bodyB.position.y += force.y * share;
@@ -3767,7 +3767,7 @@ var Common = _dereq_('../core/Common');
             // update geometry and reset
             for (var j = 0; j < body.parts.length; j++) {
                 var part = body.parts[j];
-                
+
                 Vertices.translate(part.vertices, impulse);
 
                 if (j > 0) {
@@ -3857,7 +3857,7 @@ var Common = _dereq_('../core/Common');
      */
 
     /**
-     * A `String` that defines the constraint rendering type. 
+     * A `String` that defines the constraint rendering type.
      * The possible values are 'line', 'pin', 'spring'.
      * An appropriate render type will be automatically chosen unless one is given in options.
      *
@@ -3917,7 +3917,7 @@ var Common = _dereq_('../core/Common');
      */
 
     /**
-     * A `Number` that specifies the damping of the constraint, 
+     * A `Number` that specifies the damping of the constraint,
      * i.e. the amount of resistance applied to each body based on their velocities to limit the amount of oscillation.
      * Damping will only be apparent when the constraint also has a very low `stiffness`.
      * A value of `0.1` means the constraint will apply heavy damping, resulting in little to no oscillation.
@@ -3929,7 +3929,7 @@ var Common = _dereq_('../core/Common');
      */
 
     /**
-     * A `Number` that specifies the target resting length of the constraint. 
+     * A `Number` that specifies the target resting length of the constraint.
      * It is calculated automatically in `Constraint.create` from initial positions of the `constraint.bodyA` and `constraint.bodyB`.
      *
      * @property length
@@ -3994,11 +3994,11 @@ var Bounds = _dereq_('../geometry/Bounds');
             }
         }
 
-        var constraint = Constraint.create({ 
+        var constraint = Constraint.create({
             label: 'Mouse Constraint',
             pointA: mouse.position,
             pointB: { x: 0, y: 0 },
-            length: 0.01, 
+            length: 0.01,
             stiffness: 0.1,
             angularStiffness: 1,
             render: {
@@ -4047,7 +4047,7 @@ var Bounds = _dereq_('../geometry/Bounds');
             if (!constraint.bodyB) {
                 for (var i = 0; i < bodies.length; i++) {
                     body = bodies[i];
-                    if (Bounds.contains(body.bounds, mouse.position) 
+                    if (Bounds.contains(body.bounds, mouse.position)
                             && Detector.canCollide(body.collisionFilter, mouseConstraint.collisionFilter)) {
                         for (var j = body.parts.length > 1 ? 1 : 0; j < body.parts.length; j++) {
                             var part = body.parts[j];
@@ -4263,7 +4263,7 @@ module.exports = Common;
                 }
             }
         }
-        
+
         return obj;
     };
 
@@ -4303,7 +4303,7 @@ module.exports = Common;
      */
     Common.values = function(obj) {
         var values = [];
-        
+
         if (Object.keys) {
             var keys = Object.keys(obj);
             for (var i = 0; i < keys.length; i++) {
@@ -4311,7 +4311,7 @@ module.exports = Common;
             }
             return values;
         }
-        
+
         // avoid hasOwnProperty for performance
         for (var key in obj)
             values.push(obj[key]);
@@ -4430,7 +4430,7 @@ module.exports = Common;
     Common.isString = function(obj) {
         return toString.call(obj) === '[object String]';
     };
-    
+
     /**
      * Returns the given value clamped between a minimum and maximum value.
      * @method clamp
@@ -4446,7 +4446,7 @@ module.exports = Common;
             return max;
         return value;
     };
-    
+
     /**
      * Returns the sign of the given value.
      * @method sign
@@ -4456,7 +4456,7 @@ module.exports = Common;
     Common.sign = function(value) {
         return value < 0 ? -1 : 1;
     };
-    
+
     /**
      * Returns the current timestamp since the time origin (e.g. from page load).
      * The result will be high-resolution including decimal places if available.
@@ -4474,7 +4474,7 @@ module.exports = Common;
 
         return (new Date()) - Common._nowStartTime;
     };
-    
+
     /**
      * Returns a random value between a minimum and a maximum value inclusive.
      * The function uses a seeded random generator.
@@ -4515,7 +4515,7 @@ module.exports = Common;
 
     /**
      * The console logging level to use, where each level includes all levels above and excludes the levels below.
-     * The default level is 'debug' which shows all console messages.  
+     * The default level is 'debug' which shows all console messages.
      *
      * Possible level values are:
      * - 0 = None
@@ -4817,7 +4817,7 @@ var Body = _dereq_('../body/Body');
                 element: element,
                 controller: Render
             };
-            
+
             engine.render = Common.extend(renderDefaults, engine.render);
         }
 
@@ -4968,7 +4968,7 @@ var Body = _dereq_('../body/Body');
 
         return engine;
     };
-    
+
     /**
      * Merges two engines by keeping the configuration of `engineA` but replacing the world with the one from `engineB`.
      * @method merge
@@ -4977,7 +4977,7 @@ var Body = _dereq_('../body/Body');
      */
     Engine.merge = function(engineA, engineB) {
         Common.extend(engineA, engineB);
-        
+
         if (engineB.world) {
             engineA.world = engineB.world;
 
@@ -5000,7 +5000,7 @@ var Body = _dereq_('../body/Body');
      */
     Engine.clear = function(engine) {
         var world = engine.world;
-        
+
         Pairs.clear(engine.pairs);
 
         var broadphase = engine.broadphase;
@@ -5041,7 +5041,7 @@ var Body = _dereq_('../body/Body');
         if ((gravity.x === 0 && gravity.y === 0) || gravityScale === 0) {
             return;
         }
-        
+
         for (var i = 0; i < bodies.length; i++) {
             var body = bodies[i];
 
@@ -5059,10 +5059,10 @@ var Body = _dereq_('../body/Body');
      * @method updateAll
      * @private
      * @param {body[]} bodies
-     * @param {number} deltaTime 
+     * @param {number} deltaTime
      * The amount of time elapsed between updates
      * @param {number} timeScale
-     * @param {number} correction 
+     * @param {number} correction
      * The Verlet correction factor (deltaTime / lastDeltaTime)
      * @param {bounds} worldBounds
      */
@@ -5180,7 +5180,7 @@ var Body = _dereq_('../body/Body');
      */
 
     /**
-     * An `Object` containing properties regarding the timing systems of the engine. 
+     * An `Object` containing properties regarding the timing systems of the engine.
      *
      * @property timing
      * @type object
@@ -5198,8 +5198,8 @@ var Body = _dereq_('../body/Body');
      */
 
     /**
-     * A `Number` that specifies the current simulation-time in milliseconds starting from `0`. 
-     * It is incremented on every `Engine.update` by the given `delta` argument. 
+     * A `Number` that specifies the current simulation-time in milliseconds starting from `0`.
+     * It is incremented on every `Engine.update` by the given `delta` argument.
      *
      * @property timing.timestamp
      * @type number
@@ -5473,7 +5473,7 @@ var Common = _dereq_('../core/Common');
         if (!element) {
             Common.log('Mouse.create: element was undefined, defaulting to document.body', 'warn');
         }
-        
+
         mouse.element = element || document.body;
         mouse.absolute = { x: 0, y: 0 };
         mouse.position = { x: 0, y: 0 };
@@ -5491,8 +5491,8 @@ var Common = _dereq_('../core/Common');
             mouseup: null,
             mousewheel: null
         };
-        
-        mouse.mousemove = function(event) { 
+
+        mouse.mousemove = function(event) {
             var position = _getRelativeMousePosition(event, mouse.element, mouse.pixelRatio),
                 touches = event.changedTouches;
 
@@ -5507,7 +5507,7 @@ var Common = _dereq_('../core/Common');
             mouse.position.y = mouse.absolute.y * mouse.scale.y + mouse.offset.y;
             mouse.sourceEvents.mousemove = event;
         };
-        
+
         mouse.mousedown = function(event) {
             var position = _getRelativeMousePosition(event, mouse.element, mouse.pixelRatio),
                 touches = event.changedTouches;
@@ -5527,7 +5527,7 @@ var Common = _dereq_('../core/Common');
             mouse.mousedownPosition.y = mouse.position.y;
             mouse.sourceEvents.mousedown = event;
         };
-        
+
         mouse.mouseup = function(event) {
             var position = _getRelativeMousePosition(event, mouse.element, mouse.pixelRatio),
                 touches = event.changedTouches;
@@ -5535,7 +5535,7 @@ var Common = _dereq_('../core/Common');
             if (touches) {
                 event.preventDefault();
             }
-            
+
             mouse.button = -1;
             mouse.absolute.x = position.x;
             mouse.absolute.y = position.y;
@@ -5568,7 +5568,7 @@ var Common = _dereq_('../core/Common');
         element.addEventListener('mousemove', mouse.mousemove);
         element.addEventListener('mousedown', mouse.mousedown);
         element.addEventListener('mouseup', mouse.mouseup);
-        
+
         element.addEventListener('mousewheel', mouse.mousewheel);
         element.addEventListener('DOMMouseScroll', mouse.mousewheel);
 
@@ -5615,7 +5615,7 @@ var Common = _dereq_('../core/Common');
         mouse.position.x = mouse.absolute.x * mouse.scale.x + mouse.offset.x;
         mouse.position.y = mouse.absolute.y * mouse.scale.y + mouse.offset.y;
     };
-    
+
     /**
      * Gets the mouse position relative to an element given a screen pixel ratio.
      * @method _getRelativeMousePosition
@@ -5632,7 +5632,7 @@ var Common = _dereq_('../core/Common');
             scrollY = (window.pageYOffset !== undefined) ? window.pageYOffset : rootNode.scrollTop,
             touches = event.changedTouches,
             x, y;
-        
+
         if (touches) {
             x = touches[0].pageX - elementBounds.left - scrollX;
             y = touches[0].pageY - elementBounds.top - scrollY;
@@ -5641,7 +5641,7 @@ var Common = _dereq_('../core/Common');
             y = event.pageY - elementBounds.top - scrollY;
         }
 
-        return { 
+        return {
             x: x / (element.clientWidth / (element.width || element.clientWidth) * pixelRatio),
             y: y / (element.clientHeight / (element.height || element.clientHeight) * pixelRatio)
         };
@@ -5698,7 +5698,7 @@ var Common = _dereq_('./Common');
     };
 
     /**
-     * Resolves a dependency to a plugin object from the registry if it exists. 
+     * Resolves a dependency to a plugin object from the registry if it exists.
      * The `dependency` may contain a version, but only the name matters when resolving.
      * @method resolve
      * @param dependency {string} The dependency.
@@ -5911,7 +5911,7 @@ var Common = _dereq_('./Common');
     };
 
     /**
-     * Parses a version string into its components.  
+     * Parses a version string into its components.
      * Versions are strictly of the format `x.y.z` (as in [semver](http://semver.org/)).
      * Versions may optionally have a prerelease tag in the format `x.y.z-alpha`.
      * Ranges are a strict subset of [npm ranges](https://docs.npmjs.com/misc/semver#advanced-range-syntax).
@@ -5997,7 +5997,7 @@ var Common = _dereq_('./Common');
 
 },{"./Common":14}],21:[function(_dereq_,module,exports){
 /**
-* The `Matter.Runner` module is an optional utility which provides a game loop, 
+* The `Matter.Runner` module is an optional utility which provides a game loop,
 * that handles continuously updating a `Matter.Engine` for you within a browser.
 * It is intended for development and debugging purposes, but may also be suitable for simple games.
 * If you are using your own game loop instead, then you do not need the `Matter.Runner` module.
@@ -6024,17 +6024,17 @@ var Common = _dereq_('./Common');
     if (typeof window !== 'undefined') {
         _requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame
                                       || window.mozRequestAnimationFrame || window.msRequestAnimationFrame;
-   
-        _cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame 
+
+        _cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame
                                       || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame;
     }
 
     if (!_requestAnimationFrame) {
         var _frameTimeout;
 
-        _requestAnimationFrame = function(callback){ 
-            _frameTimeout = setTimeout(function() { 
-                callback(Common.now()); 
+        _requestAnimationFrame = function(callback){
+            _frameTimeout = setTimeout(function() {
+                callback(Common.now());
             }, 1000 / 60);
         };
 
@@ -6131,7 +6131,7 @@ var Common = _dereq_('./Common');
             runner.deltaHistory.push(delta);
             runner.deltaHistory = runner.deltaHistory.slice(-runner.deltaSampleSize);
             delta = Math.min.apply(null, runner.deltaHistory);
-            
+
             // limit delta
             delta = delta < runner.deltaMin ? runner.deltaMin : delta;
             delta = delta > runner.deltaMax ? runner.deltaMax : delta;
@@ -6165,7 +6165,7 @@ var Common = _dereq_('./Common');
         Events.trigger(engine, 'tick', event); // @deprecated
 
         // if world has been modified, clear the render scene graph
-        if (engine.world.isModified 
+        if (engine.world.isModified
             && engine.render
             && engine.render.controller
             && engine.render.controller.clear) {
@@ -6368,13 +6368,13 @@ var Events = _dereq_('./Events');
 
             var minMotion = Math.min(body.motion, motion),
                 maxMotion = Math.max(body.motion, motion);
-        
+
             // biased average motion estimation between frames
             body.motion = Sleeping._minBias * minMotion + (1 - Sleeping._minBias) * maxMotion;
-            
+
             if (body.sleepThreshold > 0 && body.motion < Sleeping._motionSleepThreshold * timeFactor) {
                 body.sleepCounter += 1;
-                
+
                 if (body.sleepCounter >= body.sleepThreshold)
                     Sleeping.set(body, true);
             } else if (body.sleepCounter > 0) {
@@ -6395,19 +6395,19 @@ var Events = _dereq_('./Events');
         // wake up bodies involved in collisions
         for (var i = 0; i < pairs.length; i++) {
             var pair = pairs[i];
-            
+
             // don't wake inactive pairs
             if (!pair.isActive)
                 continue;
 
             var collision = pair.collision,
-                bodyA = collision.bodyA.parent, 
+                bodyA = collision.bodyA.parent,
                 bodyB = collision.bodyB.parent;
-        
+
             // don't wake if at least one body is static
             if ((bodyA.isSleeping && bodyB.isSleeping) || bodyA.isStatic || bodyB.isStatic)
                 continue;
-        
+
             if (bodyA.isSleeping || bodyB.isSleeping) {
                 var sleepingBody = (bodyA.isSleeping && !bodyA.isStatic) ? bodyA : bodyB,
                     movingBody = sleepingBody === bodyA ? bodyB : bodyA;
@@ -6418,7 +6418,7 @@ var Events = _dereq_('./Events');
             }
         }
     };
-  
+
     /**
      * Set a body as sleeping or awake.
      * @method set
@@ -6461,7 +6461,7 @@ var Events = _dereq_('./Events');
 },{"./Events":16}],23:[function(_dereq_,module,exports){
 (function (global){
 /**
-* The `Matter.Bodies` module contains factory methods for creating rigid body models 
+* The `Matter.Bodies` module contains factory methods for creating rigid body models
 * with commonly used body configurations (such as rectangles, circles and other polygons).
 *
 * See the included usage [examples](https://github.com/liabru/matter-js/tree/master/examples).
@@ -6485,7 +6485,7 @@ var decomp = (typeof window !== "undefined" ? window['decomp'] : typeof global !
 (function() {
 
     /**
-     * Creates a new rigid body model with a rectangle hull. 
+     * Creates a new rigid body model with a rectangle hull.
      * The options parameter is an object that specifies any properties you wish to override the defaults.
      * See the properties section of the `Matter.Body` module for detailed information on what you can pass via the `options` object.
      * @method rectangle
@@ -6499,7 +6499,7 @@ var decomp = (typeof window !== "undefined" ? window['decomp'] : typeof global !
     Bodies.rectangle = function(x, y, width, height, options) {
         options = options || {};
 
-        var rectangle = { 
+        var rectangle = {
             label: 'Rectangle Body',
             position: { x: x, y: y },
             vertices: Vertices.fromPath('L 0 0 L ' + width + ' 0 L ' + width + ' ' + height + ' L 0 ' + height)
@@ -6507,16 +6507,16 @@ var decomp = (typeof window !== "undefined" ? window['decomp'] : typeof global !
 
         if (options.chamfer) {
             var chamfer = options.chamfer;
-            rectangle.vertices = Vertices.chamfer(rectangle.vertices, chamfer.radius, 
+            rectangle.vertices = Vertices.chamfer(rectangle.vertices, chamfer.radius,
                                     chamfer.quality, chamfer.qualityMin, chamfer.qualityMax);
             delete options.chamfer;
         }
 
         return Body.create(Common.extend({}, rectangle, options));
     };
-    
+
     /**
-     * Creates a new rigid body model with a trapezoid hull. 
+     * Creates a new rigid body model with a trapezoid hull.
      * The options parameter is an object that specifies any properties you wish to override the defaults.
      * See the properties section of the `Matter.Body` module for detailed information on what you can pass via the `options` object.
      * @method trapezoid
@@ -6533,7 +6533,7 @@ var decomp = (typeof window !== "undefined" ? window['decomp'] : typeof global !
 
         slope *= 0.5;
         var roof = (1 - (slope * 2)) * width;
-        
+
         var x1 = width * slope,
             x2 = x1 + roof,
             x3 = x2 + x1,
@@ -6545,7 +6545,7 @@ var decomp = (typeof window !== "undefined" ? window['decomp'] : typeof global !
             verticesPath = 'L 0 0 L ' + x2 + ' ' + (-height) + ' L ' + x3 + ' 0';
         }
 
-        var trapezoid = { 
+        var trapezoid = {
             label: 'Trapezoid Body',
             position: { x: x, y: y },
             vertices: Vertices.fromPath(verticesPath)
@@ -6553,7 +6553,7 @@ var decomp = (typeof window !== "undefined" ? window['decomp'] : typeof global !
 
         if (options.chamfer) {
             var chamfer = options.chamfer;
-            trapezoid.vertices = Vertices.chamfer(trapezoid.vertices, chamfer.radius, 
+            trapezoid.vertices = Vertices.chamfer(trapezoid.vertices, chamfer.radius,
                                     chamfer.quality, chamfer.qualityMin, chamfer.qualityMax);
             delete options.chamfer;
         }
@@ -6562,7 +6562,7 @@ var decomp = (typeof window !== "undefined" ? window['decomp'] : typeof global !
     };
 
     /**
-     * Creates a new rigid body model with a circle hull. 
+     * Creates a new rigid body model with a circle hull.
      * The options parameter is an object that specifies any properties you wish to override the defaults.
      * See the properties section of the `Matter.Body` module for detailed information on what you can pass via the `options` object.
      * @method circle
@@ -6580,7 +6580,7 @@ var decomp = (typeof window !== "undefined" ? window['decomp'] : typeof global !
             label: 'Circle Body',
             circleRadius: radius
         };
-        
+
         // approximate circles with polygons until true circles implemented in SAT
         maxSides = maxSides || 25;
         var sides = Math.ceil(Math.max(10, Math.min(maxSides, radius)));
@@ -6593,7 +6593,7 @@ var decomp = (typeof window !== "undefined" ? window['decomp'] : typeof global !
     };
 
     /**
-     * Creates a new rigid body model with a regular polygon hull with the given number of sides. 
+     * Creates a new rigid body model with a regular polygon hull with the given number of sides.
      * The options parameter is an object that specifies any properties you wish to override the defaults.
      * See the properties section of the `Matter.Body` module for detailed information on what you can pass via the `options` object.
      * @method polygon
@@ -6622,7 +6622,7 @@ var decomp = (typeof window !== "undefined" ? window['decomp'] : typeof global !
             path += 'L ' + xx.toFixed(3) + ' ' + yy.toFixed(3) + ' ';
         }
 
-        var polygon = { 
+        var polygon = {
             label: 'Polygon Body',
             position: { x: x, y: y },
             vertices: Vertices.fromPath(path)
@@ -6630,7 +6630,7 @@ var decomp = (typeof window !== "undefined" ? window['decomp'] : typeof global !
 
         if (options.chamfer) {
             var chamfer = options.chamfer;
-            polygon.vertices = Vertices.chamfer(polygon.vertices, chamfer.radius, 
+            polygon.vertices = Vertices.chamfer(polygon.vertices, chamfer.radius,
                                     chamfer.quality, chamfer.qualityMin, chamfer.qualityMax);
             delete options.chamfer;
         }
@@ -6837,37 +6837,37 @@ var Bodies = _dereq_('./Bodies');
 
         for (var row = 0; row < rows; row++) {
             var maxHeight = 0;
-            
+
             for (var column = 0; column < columns; column++) {
                 var body = callback(x, y, column, row, lastBody, i);
-                    
+
                 if (body) {
                     var bodyHeight = body.bounds.max.y - body.bounds.min.y,
-                        bodyWidth = body.bounds.max.x - body.bounds.min.x; 
+                        bodyWidth = body.bounds.max.x - body.bounds.min.x;
 
                     if (bodyHeight > maxHeight)
                         maxHeight = bodyHeight;
-                    
+
                     Body.translate(body, { x: bodyWidth * 0.5, y: bodyHeight * 0.5 });
 
                     x = body.bounds.max.x + columnGap;
 
                     Composite.addBody(stack, body);
-                    
+
                     lastBody = body;
                     i += 1;
                 } else {
                     x += columnGap;
                 }
             }
-            
+
             y += maxHeight + rowGap;
             x = xx;
         }
 
         return stack;
     };
-    
+
     /**
      * Chains all bodies in the given composite together using constraints.
      * @method chain
@@ -6881,29 +6881,29 @@ var Bodies = _dereq_('./Bodies');
      */
     Composites.chain = function(composite, xOffsetA, yOffsetA, xOffsetB, yOffsetB, options) {
         var bodies = composite.bodies;
-        
+
         for (var i = 1; i < bodies.length; i++) {
             var bodyA = bodies[i - 1],
                 bodyB = bodies[i],
                 bodyAHeight = bodyA.bounds.max.y - bodyA.bounds.min.y,
-                bodyAWidth = bodyA.bounds.max.x - bodyA.bounds.min.x, 
+                bodyAWidth = bodyA.bounds.max.x - bodyA.bounds.min.x,
                 bodyBHeight = bodyB.bounds.max.y - bodyB.bounds.min.y,
                 bodyBWidth = bodyB.bounds.max.x - bodyB.bounds.min.x;
-        
+
             var defaults = {
                 bodyA: bodyA,
                 pointA: { x: bodyAWidth * xOffsetA, y: bodyAHeight * yOffsetA },
                 bodyB: bodyB,
                 pointB: { x: bodyBWidth * xOffsetB, y: bodyBHeight * yOffsetB }
             };
-            
+
             var constraint = Common.extend(defaults, options);
-        
+
             Composite.addConstraint(composite, Constraint.create(constraint));
         }
 
         composite.label += ' Chain';
-        
+
         return composite;
     };
 
@@ -6924,7 +6924,7 @@ var Bodies = _dereq_('./Bodies');
             bodyA,
             bodyB,
             bodyC;
-        
+
         for (row = 0; row < rows; row++) {
             for (col = 1; col < columns; col++) {
                 bodyA = bodies[(col - 1) + (row * columns)];
@@ -6952,10 +6952,10 @@ var Bodies = _dereq_('./Bodies');
         }
 
         composite.label += ' Mesh';
-        
+
         return composite;
     };
-    
+
     /**
      * Create a new composite containing bodies created in the callback in a pyramid arrangement.
      * This function uses the body's bounds to prevent overlaps.
@@ -6973,26 +6973,26 @@ var Bodies = _dereq_('./Bodies');
         return Composites.stack(xx, yy, columns, rows, columnGap, rowGap, function(x, y, column, row, lastBody, i) {
             var actualRows = Math.min(rows, Math.ceil(columns / 2)),
                 lastBodyWidth = lastBody ? lastBody.bounds.max.x - lastBody.bounds.min.x : 0;
-            
+
             if (row > actualRows)
                 return;
-            
+
             // reverse row order
             row = actualRows - row;
-            
+
             var start = row,
                 end = columns - 1 - row;
 
             if (column < start || column > end)
                 return;
-            
+
             // retroactively fix the first body's position, since width was unknown
             if (i === 1) {
                 Body.translate(lastBody, { x: (column + (columns % 2 === 1 ? 1 : -1)) * lastBodyWidth, y: 0 });
             }
 
             var xOffset = lastBody ? column * lastBodyWidth : 0;
-            
+
             return callback(xx + xOffset + column * columnGap, y, column, row, lastBody, i);
         });
     };
@@ -7012,7 +7012,7 @@ var Bodies = _dereq_('./Bodies');
 
         for (var i = 0; i < number; i++) {
             var separation = 1.9,
-                circle = Bodies.circle(xx + i * (size * separation), yy + length, size, 
+                circle = Bodies.circle(xx + i * (size * separation), yy + length, size,
                             { inertia: Infinity, restitution: 1, friction: 0, frictionAir: 0.0001, slop: 1 }),
                 constraint = Constraint.create({ pointA: { x: xx + i * (size * separation), y: yy }, bodyB: circle });
 
@@ -7022,7 +7022,7 @@ var Bodies = _dereq_('./Bodies');
 
         return newtonsCradle;
     };
-    
+
     /**
      * Creates a composite with simple car setup of bodies and constraints.
      * @method car
@@ -7039,9 +7039,9 @@ var Bodies = _dereq_('./Bodies');
             wheelAOffset = -width * 0.5 + wheelBase,
             wheelBOffset = width * 0.5 - wheelBase,
             wheelYOffset = 0;
-    
+
         var car = Composite.create({ label: 'Car' }),
-            body = Bodies.rectangle(xx, yy, width, height, { 
+            body = Bodies.rectangle(xx, yy, width, height, {
                 collisionFilter: {
                     group: group
                 },
@@ -7050,21 +7050,21 @@ var Bodies = _dereq_('./Bodies');
                 },
                 density: 0.0002
             });
-    
-        var wheelA = Bodies.circle(xx + wheelAOffset, yy + wheelYOffset, wheelSize, { 
+
+        var wheelA = Bodies.circle(xx + wheelAOffset, yy + wheelYOffset, wheelSize, {
             collisionFilter: {
                 group: group
             },
             friction: 0.8
         });
-                    
-        var wheelB = Bodies.circle(xx + wheelBOffset, yy + wheelYOffset, wheelSize, { 
+
+        var wheelB = Bodies.circle(xx + wheelBOffset, yy + wheelYOffset, wheelSize, {
             collisionFilter: {
                 group: group
             },
             friction: 0.8
         });
-                    
+
         var axelA = Constraint.create({
             bodyB: body,
             pointB: { x: wheelAOffset, y: wheelYOffset },
@@ -7072,7 +7072,7 @@ var Bodies = _dereq_('./Bodies');
             stiffness: 1,
             length: 0
         });
-                        
+
         var axelB = Constraint.create({
             bodyB: body,
             pointB: { x: wheelBOffset, y: wheelYOffset },
@@ -7080,7 +7080,7 @@ var Bodies = _dereq_('./Bodies');
             stiffness: 1,
             length: 0
         });
-        
+
         Composite.addBody(car, body);
         Composite.addBody(car, wheelA);
         Composite.addBody(car, wheelB);
@@ -7149,13 +7149,13 @@ var Common = _dereq_('../core/Common');
 
         // find the unique axes, using edge normal gradients
         for (var i = 0; i < vertices.length; i++) {
-            var j = (i + 1) % vertices.length, 
-                normal = Vector.normalise({ 
-                    x: vertices[j].y - vertices[i].y, 
+            var j = (i + 1) % vertices.length,
+                normal = Vector.normalise({
+                    x: vertices[j].y - vertices[i].y,
                     y: vertices[i].x - vertices[j].x
                 }),
                 gradient = (normal.y === 0) ? Infinity : (normal.x / normal.y);
-            
+
             // limit precision
             gradient = gradient.toFixed(3).toString();
             axes[gradient] = normal;
@@ -7173,7 +7173,7 @@ var Common = _dereq_('../core/Common');
     Axes.rotate = function(axes, angle) {
         if (angle === 0)
             return;
-        
+
         var cos = Math.cos(angle),
             sin = Math.sin(angle);
 
@@ -7208,14 +7208,14 @@ module.exports = Bounds;
      * @return {bounds} A new bounds object
      */
     Bounds.create = function(vertices) {
-        var bounds = { 
-            min: { x: 0, y: 0 }, 
+        var bounds = {
+            min: { x: 0, y: 0 },
             max: { x: 0, y: 0 }
         };
 
         if (vertices)
             Bounds.update(bounds, vertices);
-        
+
         return bounds;
     };
 
@@ -7239,14 +7239,14 @@ module.exports = Bounds;
             if (vertex.y > bounds.max.y) bounds.max.y = vertex.y;
             if (vertex.y < bounds.min.y) bounds.min.y = vertex.y;
         }
-        
+
         if (velocity) {
             if (velocity.x > 0) {
                 bounds.max.x += velocity.x;
             } else {
                 bounds.min.x += velocity.x;
             }
-            
+
             if (velocity.y > 0) {
                 bounds.max.y += velocity.y;
             } else {
@@ -7263,7 +7263,7 @@ module.exports = Bounds;
      * @return {boolean} True if the bounds contain the point, otherwise false
      */
     Bounds.contains = function(bounds, point) {
-        return point.x >= bounds.min.x && point.x <= bounds.max.x 
+        return point.x >= bounds.min.x && point.x <= bounds.max.x
                && point.y >= bounds.min.y && point.y <= bounds.max.y;
     };
 
@@ -7301,13 +7301,13 @@ module.exports = Bounds;
     Bounds.shift = function(bounds, position) {
         var deltaX = bounds.max.x - bounds.min.x,
             deltaY = bounds.max.y - bounds.min.y;
-            
+
         bounds.min.x = position.x;
         bounds.max.x = position.x + deltaX;
         bounds.min.y = position.y;
         bounds.max.y = position.y + deltaY;
     };
-    
+
 })();
 
 },{}],27:[function(_dereq_,module,exports){
@@ -7341,8 +7341,8 @@ var Bounds = _dereq_('../geometry/Bounds');
      */
     Svg.pathToVertices = function(path, sampleLength) {
         // https://github.com/wout/svg.topoly.js/blob/master/svg.topoly.js
-        var i, il, total, point, segment, segments, 
-            segmentsQueue, lastSegment, 
+        var i, il, total, point, segment, segments,
+            segmentsQueue, lastSegment,
             lastPoint, segmentIndex, points = [],
             lx, ly, length = 0, x = 0, y = 0;
 
@@ -7383,7 +7383,7 @@ var Bounds = _dereq_('../geometry/Bounds');
             var segType = segment.pathSegTypeAsLetter.toUpperCase();
 
             // skip path ends
-            if (segType === 'Z') 
+            if (segType === 'Z')
                 return;
 
             // map segment to x and y
@@ -7765,8 +7765,8 @@ module.exports = Vector;
      * @private
      */
     Vector._temp = [
-        Vector.create(), Vector.create(), 
-        Vector.create(), Vector.create(), 
+        Vector.create(), Vector.create(),
+        Vector.create(), Vector.create(),
         Vector.create(), Vector.create()
     ];
 
@@ -7828,7 +7828,7 @@ var Common = _dereq_('../core/Common');
     };
 
     /**
-     * Parses a string containing ordered x y pairs separated by spaces (and optionally commas), 
+     * Parses a string containing ordered x y pairs separated by spaces (and optionally commas),
      * into a `Matter.Vertices` object for the given `Matter.Body`.
      * For parsing SVG paths, see `Svg.pathToVertices`.
      * @method fromPath
@@ -7977,7 +7977,7 @@ var Common = _dereq_('../core/Common');
             var vertice = vertices[i],
                 dx = vertice.x - point.x,
                 dy = vertice.y - point.y;
-                
+
             vertice.x = point.x + (dx * cos - dy * sin);
             vertice.y = point.y + (dx * sin + dy * cos);
         }
@@ -8065,13 +8065,13 @@ var Common = _dereq_('../core/Common');
                 continue;
             }
 
-            var prevNormal = Vector.normalise({ 
-                x: vertex.y - prevVertex.y, 
+            var prevNormal = Vector.normalise({
+                x: vertex.y - prevVertex.y,
                 y: prevVertex.x - vertex.x
             });
 
-            var nextNormal = Vector.normalise({ 
-                x: nextVertex.y - vertex.y, 
+            var nextNormal = Vector.normalise({
+                x: nextVertex.y - vertex.y,
                 y: vertex.x - nextVertex.x
             });
 
@@ -8174,7 +8174,7 @@ var Common = _dereq_('../core/Common');
         // http://geomalgorithms.com/a10-_hull-1.html
 
         var upper = [],
-            lower = [], 
+            lower = [],
             vertex,
             i;
 
@@ -8189,7 +8189,7 @@ var Common = _dereq_('../core/Common');
         for (i = 0; i < vertices.length; i += 1) {
             vertex = vertices[i];
 
-            while (lower.length >= 2 
+            while (lower.length >= 2
                    && Vector.cross3(lower[lower.length - 2], lower[lower.length - 1], vertex) <= 0) {
                 lower.pop();
             }
@@ -8201,7 +8201,7 @@ var Common = _dereq_('../core/Common');
         for (i = vertices.length - 1; i >= 0; i -= 1) {
             vertex = vertices[i];
 
-            while (upper.length >= 2 
+            while (upper.length >= 2
                    && Vector.cross3(upper[upper.length - 2], upper[upper.length - 1], vertex) <= 0) {
                 upper.pop();
             }
@@ -8241,6 +8241,7 @@ Matter.MouseConstraint = _dereq_('../constraint/MouseConstraint');
 Matter.Common = _dereq_('../core/Common');
 Matter.Engine = _dereq_('../core/Engine');
 Matter.Events = _dereq_('../core/Events');
+Matter.Matter = _dereq_('../core/Matter');
 Matter.Mouse = _dereq_('../core/Mouse');
 Matter.Runner = _dereq_('../core/Runner');
 Matter.Sleeping = _dereq_('../core/Sleeping');
@@ -8291,16 +8292,16 @@ var Vector = _dereq_('../geometry/Vector');
 var Mouse = _dereq_('../core/Mouse');
 
 (function() {
-    
+
     var _requestAnimationFrame,
         _cancelAnimationFrame;
 
     if (typeof window !== 'undefined') {
         _requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame
-                                      || window.mozRequestAnimationFrame || window.msRequestAnimationFrame 
+                                      || window.mozRequestAnimationFrame || window.msRequestAnimationFrame
                                       || function(callback){ window.setTimeout(function() { callback(Common.now()); }, 1000 / 60); };
-   
-        _cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame 
+
+        _cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame
                                       || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame;
     }
 
@@ -8361,12 +8362,12 @@ var Mouse = _dereq_('../core/Mouse');
         render.context = render.canvas.getContext('2d');
         render.textures = {};
 
-        render.bounds = render.bounds || { 
-            min: { 
+        render.bounds = render.bounds || {
+            min: {
                 x: 0,
                 y: 0
-            }, 
-            max: { 
+            },
+            max: {
                 x: render.canvas.width,
                 y: render.canvas.height
             }
@@ -8460,19 +8461,19 @@ var Mouse = _dereq_('../core/Mouse');
         for (var i = 0; i < objects.length; i += 1) {
             var object = objects[i],
                 min = object.bounds ? object.bounds.min : (object.min || object.position || object),
-                max = object.bounds ? object.bounds.max : (object.max || object.position || object); 
+                max = object.bounds ? object.bounds.max : (object.max || object.position || object);
 
-            if (min && max) { 
-                if (min.x < bounds.min.x) 
+            if (min && max) {
+                if (min.x < bounds.min.x)
                     bounds.min.x = min.x;
-                    
-                if (max.x > bounds.max.x) 
+
+                if (max.x > bounds.max.x)
                     bounds.max.x = max.x;
 
-                if (min.y < bounds.min.y) 
+                if (min.y < bounds.min.y)
                     bounds.min.y = min.y;
 
-                if (max.y > bounds.max.y) 
+                if (max.y > bounds.max.y)
                     bounds.max.y = max.y;
             }
         }
@@ -8647,7 +8648,7 @@ var Mouse = _dereq_('../core/Mouse');
 
         if (options.showAxes || options.showAngleIndicator)
             Render.bodyAxes(render, bodies, context);
-        
+
         if (options.showPositions)
             Render.bodyPositions(render, bodies, context);
 
@@ -8806,7 +8807,7 @@ var Mouse = _dereq_('../core/Mouse');
             }
         }
     };
-    
+
     /**
      * Description
      * @private
@@ -8898,20 +8899,20 @@ var Mouse = _dereq_('../core/Mouse');
                     var sprite = part.render.sprite,
                         texture = _getTexture(render, sprite.texture);
 
-                    c.translate(part.position.x, part.position.y); 
+                    c.translate(part.position.x, part.position.y);
                     c.rotate(part.angle);
 
                     c.drawImage(
                         texture,
-                        texture.width * -sprite.xOffset * sprite.xScale, 
-                        texture.height * -sprite.yOffset * sprite.yScale, 
-                        texture.width * sprite.xScale, 
+                        texture.width * -sprite.xOffset * sprite.xScale,
+                        texture.height * -sprite.yOffset * sprite.yScale,
+                        texture.width * sprite.xScale,
                         texture.height * sprite.yScale
                     );
 
                     // revert translation, hopefully faster than save / restore
                     c.rotate(-part.angle);
-                    c.translate(-part.position.x, -part.position.y); 
+                    c.translate(-part.position.x, -part.position.y);
                 } else {
                     // part polygon
                     if (part.circleRadius) {
@@ -8932,7 +8933,7 @@ var Mouse = _dereq_('../core/Mouse');
                                 c.moveTo(part.vertices[(j + 1) % part.vertices.length].x, part.vertices[(j + 1) % part.vertices.length].y);
                             }
                         }
-                        
+
                         c.lineTo(part.vertices[0].x, part.vertices[0].y);
                         c.closePath();
                     }
@@ -9002,7 +9003,7 @@ var Mouse = _dereq_('../core/Mouse');
                         c.moveTo(part.vertices[(j + 1) % part.vertices.length].x, part.vertices[(j + 1) % part.vertices.length].y);
                     }
                 }
-                
+
                 c.lineTo(part.vertices[0].x, part.vertices[0].y);
             }
         }
@@ -9042,7 +9043,7 @@ var Mouse = _dereq_('../core/Mouse');
             for (j = 1; j < body.vertices.length; j++) {
                 c.lineTo(body.vertices[j].x, body.vertices[j].y);
             }
-            
+
             c.lineTo(body.vertices[0].x, body.vertices[0].y);
         }
 
@@ -9170,7 +9171,7 @@ var Mouse = _dereq_('../core/Mouse');
                     for (k = 0; k < part.axes.length; k++) {
                         // render a single axis indicator
                         c.moveTo(part.position.x, part.position.y);
-                        c.lineTo((part.vertices[0].x + part.vertices[part.vertices.length-1].x) / 2, 
+                        c.lineTo((part.vertices[0].x + part.vertices[part.vertices.length-1].x) / 2,
                                  (part.vertices[0].y + part.vertices[part.vertices.length-1].y) / 2);
                     }
                 }
@@ -9345,7 +9346,7 @@ var Mouse = _dereq_('../core/Mouse');
         c.fill();
 
         c.beginPath();
-            
+
         // render collision normals
         for (i = 0; i < pairs.length; i++) {
             pair = pairs[i];
@@ -9363,7 +9364,7 @@ var Mouse = _dereq_('../core/Mouse');
                     normalPosX = (pair.activeContacts[0].vertex.x + pair.activeContacts[1].vertex.x) / 2;
                     normalPosY = (pair.activeContacts[0].vertex.y + pair.activeContacts[1].vertex.y) / 2;
                 }
-                
+
                 if (collision.bodyB === collision.supports[0].body || collision.bodyA.isStatic === true) {
                     c.moveTo(normalPosX - collision.normal.x * 8, normalPosY - collision.normal.y * 8);
                 } else {
@@ -9470,9 +9471,9 @@ var Mouse = _dereq_('../core/Mouse');
                 continue;
 
             var region = bucketId.split(/C|R/);
-            c.rect(0.5 + parseInt(region[1], 10) * grid.bucketWidth, 
-                    0.5 + parseInt(region[2], 10) * grid.bucketHeight, 
-                    grid.bucketWidth, 
+            c.rect(0.5 + parseInt(region[1], 10) * grid.bucketWidth,
+                    0.5 + parseInt(region[2], 10) * grid.bucketHeight,
+                    grid.bucketWidth,
                     grid.bucketHeight);
         }
 
@@ -9499,7 +9500,7 @@ var Mouse = _dereq_('../core/Mouse');
                 boundsHeight = render.bounds.max.y - render.bounds.min.y,
                 boundsScaleX = boundsWidth / render.options.width,
                 boundsScaleY = boundsHeight / render.options.height;
-            
+
             context.scale(1 / boundsScaleX, 1 / boundsScaleY);
             context.translate(-render.bounds.min.x, -render.bounds.min.y);
         }
@@ -9519,7 +9520,7 @@ var Mouse = _dereq_('../core/Mouse');
                 // render body selections
                 bounds = item.bounds;
                 context.beginPath();
-                context.rect(Math.floor(bounds.min.x - 3), Math.floor(bounds.min.y - 3), 
+                context.rect(Math.floor(bounds.min.x - 3), Math.floor(bounds.min.y - 3),
                              Math.floor(bounds.max.x - bounds.min.x + 6), Math.floor(bounds.max.y - bounds.min.y + 6));
                 context.closePath();
                 context.stroke();
@@ -9553,7 +9554,7 @@ var Mouse = _dereq_('../core/Mouse');
             context.fillStyle = 'rgba(255,165,0,0.1)';
             bounds = inspector.selectBounds;
             context.beginPath();
-            context.rect(Math.floor(bounds.min.x), Math.floor(bounds.min.y), 
+            context.rect(Math.floor(bounds.min.x), Math.floor(bounds.min.y),
                          Math.floor(bounds.max.x - bounds.min.x), Math.floor(bounds.max.y - bounds.min.y));
             context.closePath();
             context.stroke();
@@ -9731,7 +9732,7 @@ var Mouse = _dereq_('../core/Mouse');
      */
 
     /**
-     * A `Bounds` object that specifies the drawing view region. 
+     * A `Bounds` object that specifies the drawing view region.
      * Rendering will be automatically transformed and scaled to fit within the canvas size (`render.options.width` and `render.options.height`).
      * This allows for creating views that can pan or zoom around the scene.
      * You must also set `render.options.hasBounds` to `true` to enable bounded rendering.
@@ -9783,13 +9784,13 @@ var Vector = _dereq_('../geometry/Vector');
 
     if (typeof window !== 'undefined') {
         _requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame
-                                      || window.mozRequestAnimationFrame || window.msRequestAnimationFrame 
+                                      || window.mozRequestAnimationFrame || window.msRequestAnimationFrame
                                       || function(callback){ window.setTimeout(function() { callback(Common.now()); }, 1000 / 60); };
-   
-        _cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame 
+
+        _cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame
                                       || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame;
     }
-    
+
     /**
      * Creates a new Pixi.js WebGL renderer
      * @method create
@@ -9849,12 +9850,12 @@ var Vector = _dereq_('../geometry/Vector');
         render.container = render.container || new PIXI.Container();
         render.spriteContainer = render.spriteContainer || new PIXI.Container();
         render.canvas = render.canvas || render.renderer.view;
-        render.bounds = render.bounds || { 
+        render.bounds = render.bounds || {
             min: {
                 x: 0,
                 y: 0
-            }, 
-            max: { 
+            },
+            max: {
                 x: render.options.width,
                 y: render.options.height
             }
@@ -9921,13 +9922,13 @@ var Vector = _dereq_('../geometry/Vector');
             spriteContainer = render.spriteContainer;
 
         // clear stage container
-        while (container.children[0]) { 
-            container.removeChild(container.children[0]); 
+        while (container.children[0]) {
+            container.removeChild(container.children[0]);
         }
 
         // clear sprite batch
-        while (spriteContainer.children[0]) { 
-            spriteContainer.removeChild(spriteContainer.children[0]); 
+        while (spriteContainer.children[0]) {
+            spriteContainer.removeChild(spriteContainer.children[0]);
         }
 
         var bgSprite = render.sprites['bg-0'];
@@ -9954,7 +9955,7 @@ var Vector = _dereq_('../geometry/Vector');
     };
 
     /**
-     * Sets the background of the canvas 
+     * Sets the background of the canvas
      * @method setBackground
      * @param {RenderPixi} render
      * @param {string} background
@@ -9972,7 +9973,7 @@ var Vector = _dereq_('../geometry/Vector');
 
                 // remove background sprite if existing
                 if (bgSprite)
-                    render.container.removeChild(bgSprite); 
+                    render.container.removeChild(bgSprite);
             } else {
                 // initialise background sprite if needed
                 if (!bgSprite) {
@@ -10096,7 +10097,7 @@ var Vector = _dereq_('../geometry/Vector');
         primitive.clear();
         primitive.beginFill(0, 0);
         primitive.lineStyle(constraintRender.lineWidth, Common.colorToNumber(constraintRender.strokeStyle), 1);
-        
+
         if (bodyA) {
             primitive.moveTo(bodyA.position.x + pointA.x, bodyA.position.y + pointA.y);
         } else {
@@ -10111,7 +10112,7 @@ var Vector = _dereq_('../geometry/Vector');
 
         primitive.endFill();
     };
-    
+
     /**
      * Description
      * @method body
@@ -10243,7 +10244,7 @@ var Vector = _dereq_('../geometry/Vector');
                 }
 
                 primitive.moveTo(part.position.x - body.position.x, part.position.y - body.position.y);
-                primitive.lineTo(((part.vertices[0].x + part.vertices[part.vertices.length-1].x) / 2 - body.position.x), 
+                primitive.lineTo(((part.vertices[0].x + part.vertices[part.vertices.length-1].x) / 2 - body.position.x),
                                  ((part.vertices[0].y + part.vertices[part.vertices.length-1].y) / 2 - body.position.y));
 
                 primitive.endFill();
